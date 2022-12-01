@@ -1,2 +1,2 @@
 # AdventOfCode2022
-Advent of Code 2022 solutions
+My Advent of Code 2022 solutions. Still working in Python, mostly for expertise development.
