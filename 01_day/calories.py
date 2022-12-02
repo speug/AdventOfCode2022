@@ -5,7 +5,7 @@ dirpath = os.path.dirname(__file__)
 input_path = os.path.join(dirpath, 'input')
 items = []
 with open(input_path, 'r') as f:
-   items = f.readlines()
+    items = f.readlines()
 
 items = [int(x.strip()) if x != '\n' else -1 for x in items]
 
