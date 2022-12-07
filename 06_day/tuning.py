@@ -9,7 +9,7 @@ with open(input_path, "r") as f:
 stream = stream.rstrip()
 
 
-def find_first_n_nunique(string, n):
+def find_first_n_unique(string, n):
     for i in range(len(stream) - n):
         sub = set(stream[i:i + n])
         if len(sub) == n:
@@ -20,9 +20,9 @@ def find_first_n_nunique(string, n):
 # part 1
 
 print("Packet start marker begins at index " +
-      f"{find_first_n_nunique(stream, 4) + 4}")
+      f"{find_first_n_unique(stream, 4) + 4}")
 
 # part 2
 # the same, but now we need 14 chars
 print("Message start marker begins at index " +
-      f"{find_first_n_nunique(stream, 14) + 14}")
+      f"{find_first_n_unique(stream, 14) + 14}")
