@@ -130,6 +130,7 @@ print(f'Part 1: the sum of small subdirs is {sum_small}')
 fs_size = 7e7
 free_space_required = 3e7
 space_to_be_freed = root.get_size() - (fs_size - free_space_required)
+# choose the smallest file larger than the space to be freed
 best_to_remove = min([x for x in subdirs if x[1] >= space_to_be_freed],
-                     key=lambda x: x[1] - free_space_required)
+                     key=lambda x: x[1])
 print(f'Part 2: best to remove is {best_to_remove}')
