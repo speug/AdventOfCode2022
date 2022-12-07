@@ -66,15 +66,6 @@ class Directory(FSEntry):
             out += con.__str__()
         return out
 
-    def get_small_subdirs(self, result=None, size_threshold=100000):
-        if result is None:
-            result = []
-        if self.get_size() < size_threshold:
-            result.append((self.name, self.get_size()))
-        subdirs = [x for x in self.contents if x.is_dir]
-        [x.get_small_subdirs(result) for x in subdirs]
-        return result
-
     def get_subdirs(self, result=None):
         if result is None:
             result = []
