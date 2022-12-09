@@ -46,12 +46,12 @@ def move_tail(head_pos, link_pos):
     # if distance in one coord is 2 and 1 in another, needs diagonal move
     if (abs(dx) + abs(dy) > 2):
         link_pos += np.array(
-            [np.sign(dx) * 1, np.sign(dy) * 1])
+            [np.sign(dx), np.sign(dy)])
     # otherwise, just step towards the head
     elif abs(dx) > 1:
-        link_pos[0] += np.sign(dx) * 1
+        link_pos[0] += np.sign(dx)
     elif abs(dy) > 1:
-        link_pos[1] += np.sign(dy) * 1
+        link_pos[1] += np.sign(dy)
     return link_pos
 
 
