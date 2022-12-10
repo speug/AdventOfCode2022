@@ -21,23 +21,31 @@ def run_instructions(instructions, debug=False):
     signal_strengths = {}
     screen = [["." for x in range(40)] for y in range(6)]
     while instruction_idx < len(instructions):
+        # save signal strength
         if cycles == 20 or (cycles - 20) % 40 == 0:
             signal_strengths[cycles] = x
+        
+        # update screen
         screen_row = (cycles - 1) // 40
         screen_idx = (cycles - 1) % 40
         if screen_idx in [x - 1, x, x + 1]:
             screen[screen_row][screen_idx] = "#"
+        
+        # process next instruction
         curr_instruction = instructions[instruction_idx]
         if curr_instruction[:4] == "addx":
-            command, value = curr_instruction.split()
+            _, value = curr_instruction.split()
             if adding:
                 x += int(value)
                 adding = False
                 instruction_idx += 1
             else:
+                # use flag to simulate spending an extra cycle
                 adding = True
         else:
+            # instruction was noop
             instruction_idx += 1
+
         if debug:
             print(
                 f"After cycle {cycles}, x={x}. "
