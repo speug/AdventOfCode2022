@@ -126,4 +126,3 @@ for start in start_coords:
     if distance is not None and distance < smallest_distance:
         smallest_distance = distance
 print(f'Part 2 optimal path length: {smallest_distance}')
-
