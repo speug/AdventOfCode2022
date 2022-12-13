@@ -28,6 +28,7 @@ def compare_elements(left, right):
             return 1
         else:
             if l == r:
+                # if elements are equal, move onto the next element
                 i += 1
                 continue
             if all(isinstance(x, int) for x in [l, r]):
