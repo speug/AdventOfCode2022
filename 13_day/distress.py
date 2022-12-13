@@ -12,6 +12,19 @@ def listify(left, right):
 
 
 def compare_elements(left, right):
+    """Compare assignment elements.
+       If inputs are ints, compare them directly.
+       If one or both are lists, wrap either non-list input in a list
+       and compare elements until a pair with different values is found
+       or one of the lists ends. If one list runs out of elements, that
+       list is considered to be smaller.
+
+       Returns
+       -------
+       -1 if left < right
+       0 if left == right
+       1 if left > right
+    """
     i = 0
     left, right = listify(left, right)
     while True:
