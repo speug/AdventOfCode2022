@@ -18,10 +18,13 @@ def compare_elements(left, right):
         l = left[i] if i < len(left) else None
         r = right[i] if i < len(right) else None
         if l is None and r is None:
+            # return from this stack frame and continue
             return 0
         if l is None and r is not None:
+            # right list is longer
             return -1
         elif l is not None and r is None:
+            # left list is longer
             return 1
         else:
             if l == r:
@@ -31,6 +34,7 @@ def compare_elements(left, right):
                 return -1 if l < r else 1
             else:
                 comp = compare_elements(l, r)
+                # if lower frame returned 0, move on to the next element
                 if comp == 0:
                     i += 1
                     continue
