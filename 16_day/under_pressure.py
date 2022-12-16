@@ -134,39 +134,3 @@ initial_situation = {
 
 best_scenario = solve(initial_situation, initial_situation)
 print(f"Best case pressure relief: {best_scenario['total_flow']}")
-
-def greedy_solve(situation, best_scenario):
-    closed_valves = situation['closed_valves']
-    current_time = situation['t']
-    best_valve = None
-    for valve in closed_valves:
-        # find best valve
-        # move to valve
-        path = routes[(situation['current_valve'].name, valve.name)]
-        move_time = len(path)
-        new_time = current_time +  move_time
-        # open current valve
-        new_time += 1
-        if new_time > 30:
-            continue
-        # create new situation
-        total_flow = situation['total_flow'] + valve.total_flow(new_time)
-        if best_valve is None or best_valve['total_flow'] < total_flow:
-            best_valve = {'valve': valve,
-                          'total_flow': total_flow,
-                          'new_time': new_time}
-
-    new_situation = dict()
-    new_situation['current_valve'] = best_valve['valve']
-    new_situation['total_flow'] = best_valve['total_flow']
-    new_situation['t'] = best_valve['new_time']
-    new_situation['open_valves'] = situation['open_valves'] + [new_situation['current_valve']]
-    new_situation['closed_valves'] = [x for x in valves_with_flow
-                                      if x not in new_situation['open_valves']]
-    if best_valve['total_flow'] > best_scenario['total_flow']:
-        best_scenario = deepcopy(new_situation)
-    best_scenario = solve(new_situation, best_scenario)
-    return best_scenario
-
-best_scenario = greedy_solve(initial_situation, initial_situation)
-print(f"Best case pressure relief (greedy): {best_scenario['total_flow']}")
