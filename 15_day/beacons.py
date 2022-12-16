@@ -176,7 +176,7 @@ def point_in_sensor(point, sensor, limits=(0, 4000000)):
     in_y_lim = point[1] >= limits[0] and point[1] <= limits[1]
     if not in_y_lim:
         return True
-    out = distance(point, sensor['location']) <= sensor['distance']
+    out = distance(point, sensor['location']) < sensor['distance']
     if out:
         print(sensor)
         print(distance(point, sensor['location']))
@@ -197,20 +197,33 @@ for sa, sb in combs:
         unit_connector = (connector[0] / d, connector[1] / d)
         print(unit_connector)
         candidate_points = []
-        candidate_point = np.array(la) + np.array(unit_connector) * (ra + 1)
+        candidate_point = np.array(la) + (np.array(unit_connector) * (ra + 1))
         candidate_point = np.round(candidate_point)
         candidate_points.append(candidate_point)
         for x in [-1, 1]:
             for y in [-1, 1]:
                 candidate_points.append(np.array([candidate_point[0]+x,
                                                   candidate_point[1]+y]))
-        candidate_point2 = np.array(la) + np.array(unit_connector) * (ra + 2)
+        candidate_point2 = np.array(la) + (np.array(unit_connector) * (ra + 2))
         candidate_point2 = np.round(candidate_point2)
         for x in [-1, 1]:
             for y in [-1, 1]:
                 candidate_points.append(np.array([candidate_point2[0]+x,
                                                   candidate_point2[1]+y]))
 
+        candidate_point = np.array(lb) - (np.array(unit_connector) * (rb + 1))
+        candidate_point = np.round(candidate_point)
+        candidate_points.append(candidate_point)
+        for x in [-1, 1]:
+            for y in [-1, 1]:
+                candidate_points.append(np.array([candidate_point[0]+x,
+                                                  candidate_point[1]+y]))
+        candidate_point2 = np.array(lb) - (np.array(unit_connector) * (rb + 2))
+        candidate_point2 = np.round(candidate_point2)
+        for x in [-1, 1]:
+            for y in [-1, 1]:
+                candidate_points.append(np.array([candidate_point2[0]+x,
+                                                  candidate_point2[1]+y]))
         for point in candidate_points:
             if all(not point_in_sensor(point, x) for x in sensors):
                 print(point)
