@@ -117,12 +117,15 @@ def solve(situation, best_scenario):
         new_situation['total_flow'] = total_flow
         new_situation['t'] = new_time
         new_situation['open_valves'] = situation['open_valves'] + [valve]
-        new_situation['closed_valves'] = [x for x in valves_with_flow
-                                          if x not in new_situation['open_valves']]
+        new_situation['closed_valves'] = [
+            x for x in valves_with_flow
+            if x not in new_situation['open_valves']
+        ]
         if total_flow > best_scenario['total_flow']:
             best_scenario = deepcopy(new_situation)
         best_scenario = solve(new_situation, best_scenario)
     return best_scenario
+
 
 initial_situation = {
     'current_valve': next(x for x in valves if x.name == 'AA'),
@@ -134,3 +137,55 @@ initial_situation = {
 
 best_scenario = solve(initial_situation, initial_situation)
 print(f"Best case pressure relief: {best_scenario['total_flow']}")
+
+
+# part 2
+
+def solve_with_simulation(situation, best_scenario):
+    if situation['t']
+    available_valves = situation['available_valves']
+    current_time = situation['t']
+    while (situation['my_valve'] != situation['my_target'] and
+           situation['ele_valve'] != situation['ele_target']):
+        current_time += 1
+        situation['my_valve'] = situation['my_path'].pop()
+        situation['ele_valve'] = situation['ele_path'].pop()
+
+    if (situation['my_valve'] == situation['my_target'] or
+            situation['my_target'] is None):
+        if situation['player_state'] == 'moving':
+            situation['plater_state'] = 'opening'
+        else:
+            for valve in available_valves:
+                new_situation =
+    else:
+        situation['my_valve'] = situation['my_path'].pop()
+
+    # same for elephant
+
+    current_time += situation['t']
+        # open current valve
+        # pick next valve, create new situation
+        # call recursively
+        for valve in closed_valves:
+        # move to valve
+            path = routes[(situation['current_valve'].name, valve.name)]
+        # open current valve
+        new_time += 1
+        if new_time > 30:
+            continue
+        # create new situation
+        total_flow = situation['total_flow'] + valve.total_flow(new_time)
+        new_situation = dict()
+        new_situation['current_valve'] = valve
+        new_situation['total_flow'] = total_flow
+        new_situation['t'] = new_time
+        new_situation['open_valves'] = situation['open_valves'] + [valve]
+        new_situation['closed_valves'] = [
+            x for x in valves_with_flow
+            if x not in new_situation['open_valves']
+        ]
+        if total_flow > best_scenario['total_flow']:
+            best_scenario = deepcopy(new_situation)
+        best_scenario = solve(new_situation, best_scenario)
+    return best_scenario
