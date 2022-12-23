@@ -143,9 +143,31 @@ print(f"Best case pressure relief: {best_scenario['total_flow']}")
 # part 2
 
 def solve_with_simulation(situation, best_scenario):
-    # does not work as the queue is empty at the start
-    current_time, current_valve = heapq.heappop(situation['move_queue'])
     available_valves = situation['available_valves']
+    while len(situation['move_queue'] < 2):
+        for valve in available_valves:
+            # move to valve
+            path = routes[(situation['current_valve'].name, valve.name)]
+            move_time = len(path)
+            new_time = move_time
+            # open current valve
+            new_time += 1
+            if new_time > 26:
+                continue
+            # create new situation
+            new_situation = dict()
+            new_situation['current_valve'] = valve
+            new_situation['total_flow'] = 0
+            new_situation['t'] = new_time
+            new_situation['open_valves'] = situation['open_valves'] + [valve]
+            new_situation['available_valves'] = [
+                x for x in valves_with_flow
+                if x not in new_situation['open_valves']
+            ]
+            new_situation['move_queue'] = [x for x in situation['move_queue']]
+            heapq.heappush(new_situation['move_queue'], (new_time, valve))
+
+    current_time, current_valve = heapq.heappop(situation['move_queue'])
     total_flow = situation['total_flow'] + current_valve.total_flow(current_time)
     if total_flow > best_scenario['total_flow']:
         best_scenario = deepcopy(situation)
